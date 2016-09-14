@@ -7,8 +7,8 @@ server {
         listen 443 ssl;
         server_name {{host}};
 
-        ssl_certificate /etc/letsencrypt/live/{{host}}/fullchain.pem;
-        ssl_certificate_key /etc/letsencrypt/live/{{host}}/privkey.pem;
+        ssl_certificate {{fullchain}};
+        ssl_certificate_key {{privkey}};
 
         access_log /var/log/nginx/{{host}}-access.log;
         error_log /var/log/nginx/{{host}}-error.log;
@@ -18,7 +18,7 @@ server {
         }
 
         location / {
-                proxy_pass http://{{ip}}:{{port}};
+                proxy_pass {{proxy_pass}};
                 proxy_set_header        Host    $host;
                 proxy_set_header        X-Forwarded-For $remote_addr;
         }
