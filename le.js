@@ -7,6 +7,12 @@ var le_store = require('le-store-certbot');
 var le_challenge = require('le-challenge-fs');
 var le, server;
 
+
+function leAgree(opts, agreeCb) {
+	// opts = { email, hosts, tosUrl }
+	agreeCb(null, opts.tosUrl);
+}
+
 var init = function(options){
 	var configDir = options.configDir;
 	var webrootPath = options.webrootPath;
@@ -17,53 +23,40 @@ var init = function(options){
 	// Storage Backend
 	var leStore = le_store.create({
 		configDir: configDir,
-		debug: false
+		debug: true
 	});
-
 
 	// ACME Challenge Handlers
 	var leChallenge = le_challenge.create({
 		webrootPath: webrootPath,
-		debug: false
+		debug: true
 	});
-
-	var file = new staticServer.Server(webrootPath);
-	 
-	server = http.createServer(function (request, response) {
-		request.addListener('end', function () {
-			file.serve(request, response);
-		}).resume();
-	});
-	server.listen(80);
-	startLECheck(leStore, leChallenge, host, email, callback);
-}
-
-function leAgree(opts, agreeCb) {
-	// opts = { email, hosts, tosUrl }
-	agreeCb(null, opts.tosUrl);
-}
-
-var startLECheck = function(leStore, leChallenge, host, email, callback){
-
+	
+	console.log('Creating LE object...');
+	
 	le = LE.create({
 		server: LE.stagingServerUrl,                           // or LE.productionServerUrl
 		store: leStore,                                        // handles saving of config, accounts, and certificates
 		challenges: { 'http-01': leChallenge },                // handles /.well-known/acme-challege keys and tokens
 		challengeType: 'http-01',                              // default to this challenge type
 		agreeToTerms: leAgree,                                 // hook to allow user to view and accept LE TOS
-		debug: false,
+		debug: true,
 		// log: function (debug) {
 			// console.log(debug);
 		// }
 	});
 	
+	console.log('Check LE certs existing...');
+	
 	// Check in-memory cache of certificates for the named host
 	le.check({ hosts: [host] }).then(function (results) {
 		if (results) {
 			// we already have certificates
+			callback(null, results);
 			return;
 		}
 
+		console.log('Registering LE certificates...');
 		// Register Certificate manually
 		le.register({
 			domains: [host],                              	// CHANGE TO YOUR DOMAIN (list for SANS)

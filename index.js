@@ -4,8 +4,8 @@ var nginx = require('./nginx');
 var options = {
 	host: 'nam.kicks-ass.org',
 	email: 'contact@guillaumejacquart.com',
-	leConfigDir: 'letsencrypt/etc',
-	leWebrootPath: 'webroot',
+	leConfigDir: '~/etc/letsencrypt',
+	leWebrootPath: '/var/www/.well-known/acme-challenge',
 	nginxConfigPath: 'etc/nginx/sites-available',
 	nginxConfigSymlinkPath: 'etc/nginx/sites-enabled',
 	nginxProxyPass: 'http://192.168.0.21:8080',
