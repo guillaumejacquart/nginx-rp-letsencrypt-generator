@@ -27,15 +27,25 @@ var init = function(options){
 	});
 
 	// ACME Challenge Handlers
+	console.log(webrootPath);
 	var leChallenge = le_challenge.create({
 		webrootPath: webrootPath,
 		debug: true
 	});
 	
-	console.log('Creating LE object...');
+	var file = new staticServer.Server('./public');
+
+	server = require('http').createServer(function (request, response) {
+		request.addListener('end', function () {
+			file.serve(request, response);
+		}).resume();
+	})
+	server.listen(8888);
 	
+	console.log('Creating LE object...');	
 	le = LE.create({
 		server: LE.stagingServerUrl,                           // or LE.productionServerUrl
+		webrootPath: webrootPath,
 		store: leStore,                                        // handles saving of config, accounts, and certificates
 		challenges: { 'http-01': leChallenge },                // handles /.well-known/acme-challege keys and tokens
 		challengeType: 'http-01',                              // default to this challenge type

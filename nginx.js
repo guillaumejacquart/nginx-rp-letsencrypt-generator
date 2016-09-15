@@ -12,6 +12,7 @@ function createRPVhost(options){
 	var callback = options.callback;
 	
 	var configFile = Path.join(path, host);
+	
 	var wstream = fs.createWriteStream(configFile);
 
 	mu.root = __dirname + '/templates'
