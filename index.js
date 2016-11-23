@@ -2,21 +2,22 @@ var le = require('./le');
 var nginx = require('./nginx');
 
 var options = {
-	host: 'nam.kicks-ass.org',
+	host: 'media.apps.guillaumejacquart.com',
 	email: 'contact@guillaumejacquart.com',
 	leConfigDir: 'etc/letsencrypt',
-	leWebrootPath: './public/.well-known/acme-challenge',
+	leWebrootPath: '/var/www/html',
 	nginxConfigPath: 'etc/nginx/sites-available',
 	nginxConfigSymlinkPath: 'etc/nginx/sites-enabled',
-	nginxProxyPass: 'http://192.168.0.21:8080',
+	nginxProxyPass: 'http://192.168.0.19:5000',
 }
+
 
 le({
 	configDir: options.leConfigDir,
 	webrootPath: options.leWebrootPath,
 	host: options.host,
 	email: options.email,
-	callback: function(err, result){
+	callback: function(err){
 		
 		if(err){			
 			console.log(err.stack);

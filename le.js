@@ -11,7 +11,9 @@ var download = function(url, dest, cb) {
 			var request = https.get(url, function(response) {
 				response.pipe(file);
 				file.on('finish', function() {
-					file.close(cb);
+					file.close(function(){
+						fs.chmod(dest, '700', cb);
+					});
 				});
 			});
 			return;
