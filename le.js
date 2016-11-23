@@ -2,7 +2,7 @@
 
 var fs = require('fs');
 var https = require('https');
-var exec = require('child_process').exec;
+const spawn = require('child_process').spawn;
 
 var download = function(url, dest, cb) {
 	fs.access(dest, function(err){
@@ -28,16 +28,20 @@ var init = function(options){
 	var host = options.host;
 	var callback = options.callback;
 	
-	var cmd = __dirname + '/certbot-auto certonly --webroot -w ' + webrootPath + ' -d ' + host;
+	var cmd = process.cwd() + '/certbot-auto certonly --webroot -w ' + webrootPath + ' -d ' + host;
 	
-	download('https://dl.eff.org/certbot-auto', __dirname + '/certbot-auto', function(){		
-		exec(cmd, function (error, stdout, stderr) {
-			if (error !== null) {
-				console.log('exec error: ' + error);
-				return callback(error);
-			}
-			console.log(stdout);
-			console.log(stderr);
+	download('https://dl.eff.org/certbot-auto', process.cwd() + '/certbot-auto', function(){		
+		const ls = spawn(cmd);
+
+		ls.stdout.on('data', function(data) => {
+			console.log(data);
+		});
+
+		ls.stderr.on('data', function(data) => {
+			console.log('stderr: ' + data);
+		});
+
+		ls.on('close', function(code) => {
 			return callback();
 		});
 	});
