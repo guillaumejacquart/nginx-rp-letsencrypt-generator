@@ -25,13 +25,13 @@ var download = function(url, dest, cb) {
 
 var init = function(options){
 	var webrootPath = options.webrootPath;
-	var host = options.host;
+	var domain = options.domain;
 	var callback = options.callback;
 	
 	var cmd = process.cwd() + '/certbot-auto';
 
 	download('https://dl.eff.org/certbot-auto', process.cwd() + '/certbot-auto', function(){
-		const ls = spawn(cmd, ['certonly', '--webroot', '-w ', webrootPath, '-d', host]);
+		const ls = spawn(cmd, ['certonly', '--webroot', '-w', webrootPath, '-d', domain]);
 
 		ls.stdout.on('data', function(data){
 			console.log(data);
@@ -42,7 +42,9 @@ var init = function(options){
 		});
 
 		ls.on('close', function(code){
-			return callback();
+			if(code == 0){
+				return callback();
+			}
 		});
 	});
 }

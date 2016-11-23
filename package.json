@@ -1,14 +1,18 @@
 {
-  "name": "nodejs-nginx-rp-generator",
+  "name": "letsencrypt-nginx-proxy",
   "version": "1.0.0",
   "description": "Nginx RP generator in node",
-  "main": "index.js",
+  "main": "lib.js",
+  "bin": {
+    "letsencrypt-nginx-proxy": "bin/cli.js"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "commander": "^2.9.0",
     "mu2": "^0.5.21"
   }
 }
