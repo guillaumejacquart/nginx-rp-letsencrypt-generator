@@ -1,6 +1,6 @@
 {
   "name": "letsencrypt-nginx-proxy",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Nginx RP generator in node",
   "main": "lib.js",
   "bin": {
