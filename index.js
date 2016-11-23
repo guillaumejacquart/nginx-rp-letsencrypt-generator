@@ -4,7 +4,7 @@ var nginx = require('./nginx');
 var options = {
 	host: 'media.apps.guillaumejacquart.com',
 	email: 'contact@guillaumejacquart.com',
-	leConfigDir: 'etc/letsencrypt',
+	leConfigDir: '/etc/letsencrypt',
 	leWebrootPath: '/var/www/html',
 	nginxConfigPath: '/etc/nginx/sites-available',
 	nginxConfigSymlinkPath: '/etc/nginx/sites-enabled',
