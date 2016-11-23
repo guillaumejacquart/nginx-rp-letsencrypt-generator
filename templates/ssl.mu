@@ -13,10 +13,6 @@ server {
         access_log /var/log/nginx/{{host}}-access.log;
         error_log /var/log/nginx/{{host}}-error.log;
 
-        location /.well-known {
-                alias /var/www/{{host}}/.well-known;
-        }
-
         location / {
                 proxy_pass {{proxy_pass}};
                 proxy_set_header        Host    $host;

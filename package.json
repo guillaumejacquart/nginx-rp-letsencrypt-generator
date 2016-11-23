@@ -9,10 +9,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "le-challenge-fs": "^2.0.5",
-    "le-store-certbot": "^2.0.3",
-    "letsencrypt": "^2.1.7",
-    "mu2": "^0.5.21",
-    "node-static": "^0.7.8"
+    "mu2": "^0.5.21"
   }
 }

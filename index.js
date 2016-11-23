@@ -26,8 +26,6 @@ le({
 		var privkey = options.leConfigDir + '/live/' + options.host + '/privkey.pem';
 		var fullchain = options.leConfigDir + '/live/' + options.host + '/fullchain.pem';
 		
-		console.log(privkey);
-		
 		nginx({
 			path: options.nginxConfigPath,
 			host: options.host,
