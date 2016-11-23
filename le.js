@@ -36,6 +36,8 @@ var init = function(options){
 				console.log('exec error: ' + error);
 				return callback(error);
 			}
+			console.log(stdout);
+			console.log(stderr);
 			return callback();
 		});
 	});

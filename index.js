@@ -6,8 +6,8 @@ var options = {
 	email: 'contact@guillaumejacquart.com',
 	leConfigDir: 'etc/letsencrypt',
 	leWebrootPath: '/var/www/html',
-	nginxConfigPath: 'etc/nginx/sites-available',
-	nginxConfigSymlinkPath: 'etc/nginx/sites-enabled',
+	nginxConfigPath: '/etc/nginx/sites-available',
+	nginxConfigSymlinkPath: '/etc/nginx/sites-enabled',
 	nginxProxyPass: 'http://192.168.0.19:5000',
 }
 
