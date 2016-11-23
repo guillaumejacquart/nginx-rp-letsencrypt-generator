@@ -33,15 +33,15 @@ var init = function(options){
 	download('https://dl.eff.org/certbot-auto', process.cwd() + '/certbot-auto', function(){		
 		const ls = spawn(cmd);
 
-		ls.stdout.on('data', function(data) => {
+		ls.stdout.on('data', function(data){
 			console.log(data);
 		});
 
-		ls.stderr.on('data', function(data) => {
+		ls.stderr.on('data', function(data){
 			console.log('stderr: ' + data);
 		});
 
-		ls.on('close', function(code) => {
+		ls.on('close', function(code){
 			return callback();
 		});
 	});
