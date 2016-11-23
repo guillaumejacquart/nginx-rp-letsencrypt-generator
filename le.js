@@ -31,7 +31,7 @@ var init = function(options){
 	var cmd = process.cwd() + '/certbot-auto';
 
 	download('https://dl.eff.org/certbot-auto', process.cwd() + '/certbot-auto', function(){
-		const ls = spawn(cmd, ['certonly', '--webroot', '-w ' + webrootPath, '-d ' + host]);
+		const ls = spawn(cmd, ['certonly', '--webroot', '-w ', webrootPath, '-d', host]);
 
 		ls.stdout.on('data', function(data){
 			console.log(data);
