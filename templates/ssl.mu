@@ -1,7 +1,15 @@
 server {
         listen 80;
         server_name {{domain}};
-        return 301 https://$domain$request_uri;
+		
+		location /.well-known {
+                allow all;
+                alias /var/www/html/.well-known;
+        }
+
+        location / {
+			return 301 https://$domain$request_uri;
+        }
 }
 
 server {
